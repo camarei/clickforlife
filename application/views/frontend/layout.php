@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
+<?php $this->load->view('frontend/parttials/header');?>
 <body>
+	<?php echo $content; ?>
 
+	<?php $this->load->view('frontend/parttials/footer');?>
 </body>
 </html>
