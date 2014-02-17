@@ -1,21 +1,20 @@
 <?php
 
-class Auth extends CI_Model {
+class Authentification extends CI_Model {
+    
+    public function construct() {
+        parrent::__construct();
+    }
     
     public function login($username, $password) {
-        $this->db->select('id','username','password');
+        $this->db->select('*');
         $this->db->from('users');
         $this->db->where('username',$username);
         $this->db->where('password',$password);
         $this->db->limit(1);
         
-        $query = $this->db->get();
+        return $this->db->get()->row_array();
         
-        if($query > num_rows() == 1) {
-            return $query->result();
-        } else {
-            return false;
-        }
     }
     
 }

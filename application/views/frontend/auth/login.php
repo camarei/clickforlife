@@ -11,13 +11,13 @@
 <body>
 
 <h1>Simple Login with CodeIgniter</h1>
-   <?php echo validation_errors(); ?>
-   <?php echo form_open('verifylogin'); ?>
+
+   <form method="post">
      <label for="username">Username:</label>
-     <input type="text" size="20" id="username" name="username" />
+     <input type="text" size="20" id="username" name="login" value="<?php echo set_value('login') ?>" /><?php echo form_error('login') ?>
      <br/>
      <label for="password">Password:</label>
-     <input type="password" size="20" id="passowrd" name="password" />
+     <input type="password" size="20" id="passowrd" name="password" value="<?php echo set_value('password') ?>" /><?php echo form_error('password') ?>
      <br/>
      <input type="submit" value="Login"/>
    </form>
