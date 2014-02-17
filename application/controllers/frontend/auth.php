@@ -35,10 +35,14 @@ class Auth extends CI_Controller {
     // $something = $this->input->post('something',$value); - через запятую ставится значение
 
     public function logout() {
-    	// Тут можна юзнать модель без загрузки
+    	$this->load->model('authentification', 'auth');
+    	$this->auth->logout();
+    	redirect('main');
     }
 
     public function forgot_password() {
+    	
+    	
     	// Тут можна юзнать модель без загрузки
     }
 }

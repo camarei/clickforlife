@@ -6,7 +6,7 @@ class Authentification extends CI_Model {
         parrent::__construct();
     }
     
-    public function login($username, $password) {
+    public function login(/* $username, $password */) {
         $this->db->select('*');
         $this->db->from('users');
         $this->db->where('username',$username);
@@ -15,6 +15,10 @@ class Authentification extends CI_Model {
         
         return $this->db->get()->row_array();
         
+    }
+    
+    public function logout() {
+    	
     }
     
 }
