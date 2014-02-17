@@ -38,8 +38,12 @@
 |
 */
 
-$route['login'] = "frontend/auth/login";
-$route['404_override'] = '';
+// Frontend routes
+include ('frontend/routes.php');
+
+
+// Backend routes
+include ('backend/routes.php');
 
 
 /* End of file routes.php */
