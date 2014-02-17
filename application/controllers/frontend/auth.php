@@ -10,33 +10,25 @@ class Auth extends CI_Controller {
     
     public function login() {
     	if ($this->input->server('REQUEST_METHOD') === 'POST') {
-    		$this->load->model('authentification');
-    		
-    		$this->form_validation->set_rules(array(
-					'login'		=>	"required", 
-					'password'	=>	"required"
-				));
-				
-			if ($this->form_validation->run()) {
-				
-				$user = $this->authentification->login($this->input->post('login'),$this->input->post('password'));
-				if($user) {
-					redirect('main');
-				} else {
-    					
-				}
-				
-			}
-			
-    		
-    		
-    		// Тут можна юзнать модель без загрузки
 
-    		// Вызов модели, отправка параметров в модель, если нашли юзера то делаем редирект на главную
-    		// Если нет то выводим ошибки
+    		// Set validation rules
+    		$this->form_validation->set_rules('login', 'Login', 'required'); //parameter, label, rule
+    		$this->form_validation->set_rules('password', 'Password', 'required');
+    		//--
+			
+			// If validation OK
+			if ($this->form_validation->run()) {
+
+				// Load Authentification model
+				$this->load->model('authentification', 'auth');
+
+				// Try to login user
+				if ($this->auth->login($this->input->post('login'),$this->input->post('password'))) {
+					redirect('main');
+				}
+			}
     	}
- 
-        $this->load->helper(array('form'));
+
         $this->load->view('frontend/auth/login');
     }
     
