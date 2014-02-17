@@ -1,6 +1,6 @@
 <?php
 
-class Auth extends CI_Model {
+class Authentication extends CI_Model {
     
     public function login($username, $password) {
         $this->db->select('id','username','password');
