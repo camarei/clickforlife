@@ -12,6 +12,9 @@ class Auth extends Frontend_Controller {
 	}
 
 	public function login() {
+		// If user loggedin redirect to main page
+		if ($this->get_uid()) redirect('main');
+
     	if ($this->input->server('REQUEST_METHOD') === 'POST') {
 
 			// Set validation rules
@@ -27,7 +30,6 @@ class Auth extends Frontend_Controller {
 				}
 			}
 		}
-die(var_dump($this->auth->get_uid()));
 		if ($this->auth->get_uid()) redirect('main');
 
         $this->load->view('frontend/auth/login');
@@ -41,7 +43,8 @@ die(var_dump($this->auth->get_uid()));
 	}
 
     public function forgot_password() {
-    	
+    	// If user loggedin redirect to main page
+    	if ($this->get_uid()) redirect('main');
     	
     	// Тут можна юзнать модель без загрузки
     }

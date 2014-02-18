@@ -6,6 +6,6 @@ $route['login']  = "frontend/auth/login";
 $route['logout'] = "frontend/auth/logout";
 
 // Forgot password
-$route['logout'] = "frontend/auth/forgot_password";
+//$route['logout'] = "frontend/auth/forgot_password";
 
 $route['404_override'] = '';

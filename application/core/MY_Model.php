@@ -27,7 +27,7 @@ class MY_Model extends CI_Model {
 	/*
 	* Method returns all records ordered by default order field
 	*
-	* @return array
+	* @return object
 	*/
 	public function get_all()
 	{
@@ -42,7 +42,7 @@ class MY_Model extends CI_Model {
 	* Returns one record by primary key
 	*
 	* @param integer $id primary key
-	* @return array
+	* @return object
 	*/
 	public function get($id)
 	{		
@@ -70,7 +70,7 @@ class MY_Model extends CI_Model {
 	* Returns records by condition
 	*
 	* @param string $where Where condition
-	* @return array
+	* @return object
 	*/
 	public function get_by($where)
 	{
@@ -108,9 +108,34 @@ class MY_Model extends CI_Model {
 	*/
 	public function save($data, $id = NULL)
 	{
-		return ($id === NULL)
-			? $this->_create_record($data)
-			: $this->_update_recored($id, $data);
+		// Set timestamp
+		if ($this->_timestamps == TRUE)
+		{
+			$now = new DateTime('NOW');
+			$id || $data['created'] = $now->format('Y-m-d H:i:s');
+
+			$data['modified'] = $now->format('Y-m-d H:i:s');
+		}
+		//--
+
+		if ($id === NULL) {
+			// Proccess primery key value
+			!isset($data[$this->_primary_key]) || $data[$this->_primary_key] = NULL;
+
+			$this->db->set($data);
+			$this->db->insert($this->_table_name);
+
+			return $this->db->insert_id();
+		}
+		else {
+			// Update data
+			$this->db->set($data);
+			$this->db->where($this->_primary_key, $this->filter($id));
+			$this->db->update($this->_table_name);
+			//--
+		}
+
+		return $id;
 	}
 
 	/*
@@ -134,54 +159,4 @@ class MY_Model extends CI_Model {
 
 		return FALSE;
 	}
-
-	/*
-	* Method creates a record
-	*
-	* @param array $data Insert data
-	* @return integer
-	*/
-	private function _create_record($data)
-	{
-		// Not sure about this string
-		if (! isset($data[$this->_primary_key])) $data[$this->_primary_key] = NULL;
-
-		$now = new DateTime('NOW');
-
-		// Set timestamp
-		if ($this->_timestamps) $data['created'] = $now->format('Y-m-d H:i:s');
-
-		// Insert query
-		$this->db->set($data);
-		$this->db->insert($this->_table_name);
-		//--
-
-		// Return just inserted id
-		return $this->db->insert_id();
-	}
-
-	/*
-	* Method updates record by id
-	*
-	* @param ? $data primary key
-	* @param array $data Update data
-	* @return integer
-	*/
-	private function _update_recored($id, $data)
-	{
-		$now = new DateTime('NOW');
-		//var_dump($now);
-
-		// Set timestamp
-		if ($this->_timestamps) $data['modified'] = $now->format('Y-m-d H:i:s');
-
-		// Update data
-		$this->db->set($data);
-		$this->db->where($this->_primary_key, $this->filter($id));
-		$this->db->update($this->_table_name);
-		//--
-
-		return $id;
-	}
-
 }
