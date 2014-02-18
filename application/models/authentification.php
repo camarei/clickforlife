@@ -59,7 +59,6 @@ class Authentification extends MY_Model {
 
 		// Get session id
 		if ($sid = $this->session_model->get_sid()) {
-			die($sid);
 			if ($session = $this->session_model->get($sid)) {
 				$this->_uid = $session->user_id;
 			}

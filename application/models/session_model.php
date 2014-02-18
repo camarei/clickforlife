@@ -19,6 +19,7 @@ class Session_model extends MY_Model {
 	//@var boolean $_timestamps Requed or not timestamps field
 	protected $_timestamps = TRUE;
 
+	//@var string $_sid Session id
 	private $_sid = NULL;
 
 	/*
@@ -28,9 +29,11 @@ class Session_model extends MY_Model {
 	*/
 	public function get_sid()
 	{	
+		// Try to fetch session id
 		if ($sid = $this->session->userdata('sid')){
+			// Fetch session record by id
 			if ($session = $this->get($sid)){
-
+				// Update session records
 				$this->save(array('modified' => date('now')), $sid);
 
 				return $sid;
@@ -40,10 +43,10 @@ class Session_model extends MY_Model {
 		return NULL;	
 	}
 
+	// Method remove session id from session
 	public function delete_sid()
 	{
 		$this->session->set_userdata('sid',NULL);
-		$this->session->sess_destroy();
 		$this->_sid = NULL;
 	}
 
@@ -55,19 +58,24 @@ class Session_model extends MY_Model {
 	*/
 	public function open_session($user_id)
 	{
+		// Fetch session id
 		$sid = $this->_generate_str(10);
 
 		$now = new DateTime('NOW');
 
+		// Prepare object to insert
 		$this->db->set(array(
 			'id'       => $sid,
 			'user_id'  => $user_id,
 			'created'  => $now->date,
 			'modified' => $now->date
 		));
+		//--
 
+		// Insert data into database
 		$this->db->insert($this->_table_name);
 
+		// Push session id to session 
 		$this->session->set_userdata('sid', $sid);			
 				
 		return $sid;	

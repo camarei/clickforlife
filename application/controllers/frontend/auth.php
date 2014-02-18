@@ -13,7 +13,7 @@ class Auth extends Frontend_Controller {
 
 	public function login() {
 		// If user loggedin redirect to main page
-		if ($this->get_uid()) redirect('main');
+		if ($this->auth->get_uid()) redirect('main');
 
     	if ($this->input->server('REQUEST_METHOD') === 'POST') {
 
