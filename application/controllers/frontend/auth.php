@@ -7,6 +7,7 @@ class Auth extends Frontend_Controller {
 
 		// Load Authentification model
 		$this->load->model('authentification','auth');
+		$this->load->model('session_model');
 		$this->load->helper('email');
 	}
 
@@ -26,6 +27,8 @@ class Auth extends Frontend_Controller {
 				}
 			}
 		}
+die(var_dump($this->auth->get_uid()));
+		if ($this->auth->get_uid()) redirect('main');
 
         $this->load->view('frontend/auth/login');
     }

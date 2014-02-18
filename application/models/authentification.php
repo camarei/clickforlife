@@ -9,7 +9,7 @@ class Authentification extends MY_Model {
     protected $_primery_key = 'id';
 
     //@var string $_primery_filter Filter method for a primery key
-    protected $_primery_filter = 'intval';
+    protected $_primary_filter = 'intval';
 
     //@var string $_order_by Default ordering
     protected $_order_by = '';
@@ -19,9 +19,13 @@ class Authentification extends MY_Model {
 
     //@var boolean $_timestamps Requed or not timestamps field
     protected $_timestamps = FALSE;
+
+    private $_uid = NULL;
     
     public function construct() {
         parrent::__construct();
+
+        $this->load->model('session_model');
     }
 
     /*
@@ -33,19 +37,42 @@ class Authentification extends MY_Model {
     */
     public function login($email, $password) {
 
-        return $this->get_one_by(array(
-            'email'    => $email,
-            'password' => $password
-        ));
-        
+    	$user = $this->get_one_by(array('email' => $email));
+
+		if (! $user) return FALSE;
+
+		// Add password checking here
+
+    	$this->session_model->open_session($user->id);
+		
+		return TRUE;
     }
+
+    /*
+	* Return current user id
+	*
+	* @return integer
+	*/
+	public function get_uid()
+	{	
+		if ($this->_uid) return $this->_uid;
+
+		// Get session id
+		if ($sid = $this->session_model->get_sid()) {
+			die($sid);
+			if ($session = $this->session_model->get($sid)) {
+				$this->_uid = $session->user_id;
+			}
+		}
+
+		return $this->_uid;
+	}
     
 	// Method unlogin user from site
 	public function logout()
-	{
-		$this->session->unset_userdata('sid');     
-		$this->sid = NULL;
-		$this->uid = NULL;
+	{     
+		$this->session_model->delete_sid();
+		$this->_uid = NULL;
 	} 
 }
 

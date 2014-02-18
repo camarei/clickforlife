@@ -5,11 +5,11 @@ class MY_Model extends CI_Model {
 	//@var string $_table_name Database table name
 	protected $_table_name = '';
 
-	//@var string $_primery_key Primery key field
-	protected $_primery_key = 'id';
+	//@var string $_primary_key primary key field
+	protected $_primary_key = 'id';
 
-	//@var string $_primery_filter Filter method for a primery key
-	protected $_primery_filter = 'intval';
+	//@var string $_primary_filter Filter method for a primary key
+	protected $_primary_filter = 'intval';
 
 	//@var string $_order_by Default ordering
 	protected $_order_by = '';
@@ -39,15 +39,15 @@ class MY_Model extends CI_Model {
 	}
 
 	/*
-	* Returns one record by primery key
+	* Returns one record by primary key
 	*
-	* @param integer $id Primery key
+	* @param integer $id primary key
 	* @return array
 	*/
 	public function get($id)
 	{		
-		// Find by primery key condition
-		$this->db->where($this->_primery_key, filter($id));
+		// Find by primary key condition
+		$this->db->where(array($this->_primary_key => $this->filter($id)));
 
 		// Fetch one row
 		return $this->db->get($this->_table_name)->row();
@@ -61,10 +61,9 @@ class MY_Model extends CI_Model {
 	*/
 	public function filter($value)
 	{
-		// Detect primery key filter
-		$filter = $this->_primery_filter;
-
-		return $filter($value);
+		$filter = $this->_primary_filter;
+		// Detect primary key filter
+		return ($filter) ? $filter($value) : $value;
 	}
 
 	/*
@@ -104,7 +103,7 @@ class MY_Model extends CI_Model {
 	* Create or update one record in db
 	*
 	* @param array $data Query data
-	* @param ? $id Primery key
+	* @param ? $id primary key
 	* @return integer
 	*/
 	public function save($data, $id = NULL)
@@ -115,16 +114,16 @@ class MY_Model extends CI_Model {
 	}
 
 	/*
-	* Delete record by primery key from database
+	* Delete record by primary key from database
 	*
-	* @param ? $id Primery key
+	* @param ? $id primary key
 	* @return boolean
 	*/
 	public function delete($id)
 	{
 		if ($id) {
-			// Pass filtered primery key value to db query
-			$this->db->where($this->_primery_key, $this->filter($id));
+			// Pass filtered primary key value to db query
+			$this->db->where($this->_primary_key, $this->filter($id));
 			// Set query limit
 			$this->limit(1);
 			// Delete record from table
@@ -145,10 +144,12 @@ class MY_Model extends CI_Model {
 	private function _create_record($data)
 	{
 		// Not sure about this string
-		if (! isset($data[$this->_primery_key])) $data[$this->_primery_key] = NULL;
+		if (! isset($data[$this->_primary_key])) $data[$this->_primary_key] = NULL;
+
+		$now = new DateTime('NOW');
 
 		// Set timestamp
-		if ($this->_timestamps) $data['created'] = data('now');
+		if ($this->_timestamps) $data['created'] = $now->format('Y-m-d H:i:s');
 
 		// Insert query
 		$this->db->set($data);
@@ -162,18 +163,21 @@ class MY_Model extends CI_Model {
 	/*
 	* Method updates record by id
 	*
-	* @param ? $data Primery key
+	* @param ? $data primary key
 	* @param array $data Update data
 	* @return integer
 	*/
 	private function _update_recored($id, $data)
 	{
+		$now = new DateTime('NOW');
+		//var_dump($now);
+
 		// Set timestamp
-		if ($this->timestamps) $data['modified'] = data('now');
+		if ($this->_timestamps) $data['modified'] = $now->format('Y-m-d H:i:s');
 
 		// Update data
 		$this->db->set($data);
-		$this->db->where($this->_primery_key, $this->filter($id));
+		$this->db->where($this->_primary_key, $this->filter($id));
 		$this->db->update($this->_table_name);
 		//--
 
