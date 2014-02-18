@@ -37,7 +37,7 @@ class Authentification extends MY_Model {
     */
     public function login($email, $password) {
 
-    	$user = $this->get_one_by(array('email' => $email));
+    	$user = $this->get_one_by_email($email);
 
 		if (! $user) return FALSE;
 

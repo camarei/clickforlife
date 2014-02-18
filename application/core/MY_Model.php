@@ -96,7 +96,16 @@ class MY_Model extends CI_Model {
 
 	public function __call($method, $arguments)
 	{
+		$field = end(explode('_',$method));
+		$value = (isset($arguments[0])) ? $arguments[0] : $arguments; 
 
+		if (preg_match('/get_one_by/', $method)) {
+			return $this->get_one_by(array($field => $value));
+		}
+
+		if (preg_match('/get_by/', $method)) {
+			return $this->get_by(array($field => $value));
+		}
 	}
 
 	/*
