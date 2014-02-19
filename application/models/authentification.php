@@ -73,19 +73,6 @@ class Authentification extends MY_Model {
 		$this->session_model->delete_sid();
 		$this->_uid = NULL;
 	}
-	
- 	public function forgot_password($email) {
-
-    	$user = $this->get_one_by_email($email);
-
-		if (! $user) return FALSE;
-
-		// Add email checking
-
-    	$this->session_model->open_session($user->email);
-		
-		return TRUE;
-    }
 	 
 }
 

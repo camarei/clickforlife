@@ -67,8 +67,8 @@ class Session_model extends MY_Model {
 		$this->db->set(array(
 			'id'       => $sid,
 			'user_id'  => $user_id,
-			'created'  => $now->date,
-			'modified' => $now->date
+			'created'  => $now->format('Y-m-d H:i:s'),
+			'modified' => $now->format('Y-m-d H:i:s')
 		));
 		//--
 
