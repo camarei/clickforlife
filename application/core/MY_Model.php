@@ -94,6 +94,13 @@ class MY_Model extends CI_Model {
 		return $this->db->get($this->_table_name)->row();
 	}
 
+	/*
+	* Magic method __call
+	* 
+	* @param string $method Method name
+	* @param array $arguments Method arguments
+	* @return function
+	*/
 	public function __call($method, $arguments)
 	{
 		$field = end(explode('_',$method));
