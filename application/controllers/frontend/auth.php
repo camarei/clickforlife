@@ -31,7 +31,12 @@ class Auth extends Frontend_Controller {
 			}
 		}
 
-        $this->load->view('frontend/auth/login');
+		// Set the meta section
+		$this->data['meta_title'] = $this->data['meta_title'] . '|' . 'Login';
+		//---
+
+		// Rendering the output
+        $this->render('frontend/auth/login');
     }
     
     
@@ -60,8 +65,11 @@ class Auth extends Frontend_Controller {
     			
     		}
     	}
+
+    	$this->data['meta_title'] = $this->data['meta_title'] . '|' . 'Forgot password';
     	
-    	$this->load->view('frontend/auth/forgotten');
+    	// Rendering the output
+    	$this->render('frontend/auth/forgotten');
     }
     
     

@@ -25,7 +25,8 @@ class Contacts extends Frontend_Controller {
 			}
 		}
 		
-		$this->load->view('frontend/common/contacts',array(	
+		// Render the output
+		$this->render('frontend/common/contacts',array(	
 			'is_user_login'	=> $this->auth->get_uid()
 		));
 	}
