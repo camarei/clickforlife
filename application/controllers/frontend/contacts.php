@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Contacts extends Frontend_Controller {
+class Contacts extends Frontend {
 	
 	public function __construct() {
 		parent::__construct();
@@ -24,11 +24,9 @@ class Contacts extends Frontend_Controller {
 				// send a mail
 			}
 		}
-		
-		// Render the output
-		$this->render('frontend/common/contacts',array(	
-			'is_user_login'	=> $this->auth->get_uid()
-		));
+
+		$this->_view = new View_Frontend_Contact;
+		$this->render();
 	}
 	
 }
