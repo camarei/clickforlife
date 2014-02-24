@@ -1,0 +1,12 @@
+{
+    "require": {
+        "mustache/mustache": "~2.5.1"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "View": "..",
+            "ViewModel": "mvvm"
+        }
+    }
+}
