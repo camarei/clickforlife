@@ -3,6 +3,8 @@
 class Migration_Create_users extends CI_Migration {
 
 	public function up() {
+		
+		
 		$this->dbforge->add_field(array(
 			'id' => array(
 				'type'           => 'INT',

@@ -22,7 +22,7 @@ class User extends MY_Model {
     
     
     public function __construct() {
-    	parrent::__construct();
+    	parent::__construct();
     }
 	
 }

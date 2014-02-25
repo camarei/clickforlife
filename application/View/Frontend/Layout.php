@@ -3,6 +3,6 @@
 /**
 * 
 */
-class View_Frontend_Layout extends View_Base
+abstract class View_Frontend_Layout extends View_Base
 {
 }
