@@ -26,6 +26,7 @@ class Contacts extends Frontend {
 		}
 
 		$this->_view = new View_Frontend_Contact;
+		die('error');
 		$this->render();
 	}
 	
