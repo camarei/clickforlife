@@ -7,6 +7,11 @@ class View_Frontend_Contact extends View_Frontend_Layout_3column {
 		return parent::title() . '| Контакты';
 	}
 
+	public function contacts_form()
+	{
+		return ($this->is_logged_in(get_uid()) ? contacts_form_registered() : contacts_form_unregistered();
+	}
+
 	// form for registered users
 	public function contacts_form_registered() 
 	{
@@ -18,7 +23,7 @@ class View_Frontend_Contact extends View_Frontend_Layout_3column {
 		$form .= form_input('name','name','name');
 		$form .= form_submit('send','Отправить');
 
-		$form .= form_close();
+		$form = form_close();
 
 		return $form;
 	}
@@ -35,15 +40,9 @@ class View_Frontend_Contact extends View_Frontend_Layout_3column {
 		$form .= form_textarea('text','text');
 
 		$form .= form_submit('text','text');
-		$form .= form_close();
+		$form = form_close();
 
 		return $form;
-	}
-
-
-	public function contacts_form()
-	{
-		return ($is_user_login) ? contacts_form_registered() : contacts_form_unregistered();
 	}
 
 }

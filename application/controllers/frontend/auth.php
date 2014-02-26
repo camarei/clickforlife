@@ -15,8 +15,6 @@ class Auth extends Frontend_Controller {
 		// If user loggedin redirect to main page
 		if ($this->auth->get_uid()) redirect('main');
 
-    	if ($this->input->server('REQUEST_METHOD') === 'POST') {
-
 			// Set validation rules
 			$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 			$this->form_validation->set_rules('password', 'Password', 'required');
@@ -29,18 +27,12 @@ class Auth extends Frontend_Controller {
 					redirect('main');
 				}
 			}
-		}
-
-		// Set the meta section
-		$this->data['meta_title'] = $this->data['meta_title'] . '|' . 'Login';
-		//---
 
 		// Rendering the output
-        $this->render('frontend/auth/login');
+        $this->_view = new View_Frontend_Login;
+		$this->render();
     }
-    
-    
-    // $something = $this->input->post('something',$value); - через запятую ставится значение
+
 
 	public function logout() {
 		$this->auth->logout();
@@ -48,8 +40,6 @@ class Auth extends Frontend_Controller {
 	}
 
     public function forgot_password() {
-   	
-    	// Тут можна юзнать модель без загрузки
     	
     	if ($this->input->server('REQUEST_METHOD') === 'POST') {
 
