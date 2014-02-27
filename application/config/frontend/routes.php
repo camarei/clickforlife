@@ -16,5 +16,7 @@ $route['profile'] = "frontend/user_profile";
 
 $route['registration/method'] = "frontend/users/registration_method";
 
+$route['registration/(user|victim|client)'] = "frontend/users/registration/$1";
+
 // 404 Page
 $route['404_override'] = '';
