@@ -29,7 +29,6 @@ class Auth extends Frontend {
 			}
 
 		$this->_view = new View_Frontend_Login;
-		// $this->_view->logged_in_user = $this->user->get($this->auth->get_uid());
 		$this->render();
     }
 
