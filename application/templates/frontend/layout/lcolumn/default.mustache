@@ -2,13 +2,21 @@
         <div class="col-lg-3">
         
             <div id="logo"><a href="#"><img src="images/logotip.png" /></a></div>
-            
-            <div class="block reg-button">
-                <a href="registration"><div class="button-reg"><span class="glyphicon glyphicon-ok"></span>Регистрация</div></a>
-            </div>
 
-            {{>loginform}}
+            {{#is_logged_in}}
 
+                <div class="block reg">
+                    <a href="#">Мой профиль</a>
+                    <a href="{{{logout_user}}}">Выйти</a>
+                </div>
+            {{/is_logged_in}}
+            {{^is_logged_in}}
+                <div class="block reg-button">
+                    <a href="{{{register_user_button_url}}}">
+                    <div class="button-reg"><span class="glyphicon glyphicon-ok"></span>Регистрация</div></a>
+                </div>
+                {{>loginform}}
+            {{/is_logged_in}}
             
             <div class="block warning">
                 <h4><a href="#">Внимание! Срочный сбор!</a></h4>

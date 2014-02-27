@@ -39,7 +39,7 @@ abstract class View_Frontend_Layout_3column extends View_Frontend_Layout {
 
 	public function login_form() {
 
-		$form = form_open();
+		$form = form_open('login');
 		$form .= form_input(array('name' => 'email', 'value' => set_value('email')));
 		$form .= form_input(array('type' => 'password', 'name' => 'password', 'value' => 'password'));
 		$form .= form_input(array('type' => 'submit', 'name' => 'login', 'class' => 'button-login', 'value' => 'Войти'));

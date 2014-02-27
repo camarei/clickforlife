@@ -14,5 +14,7 @@ $route['contacts'] = "frontend/contacts";
 // Page Profile
 $route['profile'] = "frontend/user_profile";
 
+$route['registration/method'] = "frontend/users/registration_method";
+
 // 404 Page
 $route['404_override'] = '';
