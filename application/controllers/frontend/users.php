@@ -6,8 +6,6 @@ class Users extends Frontend {
 		parent::__construct();
 
 		// Load Authentification model
-		$this->load->model('authentification','auth');
-		$this->load->model('session_model');
 		$this->load->helper('email');
 	}
 
@@ -16,7 +14,7 @@ class Users extends Frontend {
 
 	public function registration_method() {
 		$this->_view = new View_Frontend_Registration_Method;
-		$this->_view->render();
+		$this->render();
 	}
 
 	private function register_user() {

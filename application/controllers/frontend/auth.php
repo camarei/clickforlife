@@ -5,8 +5,6 @@ class Auth extends Frontend {
 	public function __construct() {
 		parent::__construct();
 
-		// Load Authentification model
-		$this->load->model('authentification','auth');
 		$this->load->model('session_model');
 		$this->load->helper('email');
 	}
@@ -21,7 +19,7 @@ class Auth extends Frontend {
 			// If validation OK
 			if ($this->form_validation->run()) {
 				// Try to login user
-				if ($this->auth->login($this->input->post('email'),$this->input->post('password'))) {
+				if ($this->authentification->login($this->input->post('email'),$this->input->post('password'))) {
 
 					// If user loggedin redirect to profile page
 					redirect('profile');
@@ -34,7 +32,7 @@ class Auth extends Frontend {
 
 
 	public function logout() {
-		$this->auth->logout();
+		$this->authentification->logout();
 		redirect('main');
 	}
 
@@ -50,7 +48,7 @@ class Auth extends Frontend {
     		if ($this->form_validation->run()) {
     			
     			// get user email from db
-    			if ($this->auth->get_one_by_email($this->input->post('email'))) redirect('main');
+    			if ($this->authentification->get_one_by_email($this->input->post('email'))) redirect('main');
     			
     		}
     	}

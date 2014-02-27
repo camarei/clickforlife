@@ -22,8 +22,8 @@ class Authentification extends MY_Model {
 
     private $_uid = NULL;
     
-    public function construct() {
-        parrent::__construct();
+    public function __construct() {
+        parent::__construct();
 
         $this->load->model('session_model');
     }

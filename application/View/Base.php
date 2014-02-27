@@ -159,8 +159,8 @@ abstract class View_Base extends ViewModel_Layout {
 		{
 			$CI = & get_instance();
 			$CI->load->model('user');
-			$CI->load->model('auth');
-			$this->logged_in_user = $CI->user->get($CI->auth->get_uid());
+			$CI->load->model('authentification');
+			$this->logged_in_user = $CI->user->get($CI->authentification->get_uid());
 		}
 
 		return (bool) $this->logged_in_user;
