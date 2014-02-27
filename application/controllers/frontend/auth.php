@@ -4,9 +4,6 @@ class Auth extends Frontend {
     
 	public function __construct() {
 		parent::__construct();
-
-		$this->load->model('session_model');
-		$this->load->helper('email');
 	}
 
 	public function login() {
