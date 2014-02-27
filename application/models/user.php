@@ -25,6 +25,20 @@ class User extends MY_Model {
     	parent::__construct();
     }
 	
+    /*
+    *
+    * @param integer $user_id The user id
+    * @return object
+    */
+    public function get($user_id)
+    {
+        $this->db->select('*');
+        $this->db->from($this->_table_name);
+        $this->db->join('roles', 'roles.id = users.id');
+        $this->db->where('users.id', $user_id);
+
+        return $this->db->get()->result();
+    }
 }
 
 ?>
