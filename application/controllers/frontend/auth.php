@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Auth extends Frontend_Controller {
+class Auth extends Frontend {
     
 	public function __construct() {
 		parent::__construct();
@@ -12,8 +12,6 @@ class Auth extends Frontend_Controller {
 	}
 
 	public function login() {
-		// If user loggedin redirect to main page
-		if ($this->auth->get_uid()) redirect('main');
 
 			// Set validation rules
 			$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -24,12 +22,14 @@ class Auth extends Frontend_Controller {
 			if ($this->form_validation->run()) {
 				// Try to login user
 				if ($this->auth->login($this->input->post('email'),$this->input->post('password'))) {
-					redirect('main');
+
+					// If user loggedin redirect to profile page
+					redirect('profile');
 				}
 			}
 
-		// Rendering the output
-        $this->_view = new View_Frontend_Login;
+		$this->_view = new View_Frontend_Login;
+		// $this->_view->logged_in_user = $this->user->get($this->auth->get_uid());
 		$this->render();
     }
 
