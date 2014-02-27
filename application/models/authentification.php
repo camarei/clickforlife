@@ -41,7 +41,8 @@ class Authentification extends MY_Model {
 
 		if (! $user) return FALSE;
 
-		// Add password checking here
+		// Password checking
+        if ($password != hash('sha1', $user->password)) return FALSE;
 
     	$this->session_model->open_session($user->id);
 		

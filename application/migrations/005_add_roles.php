@@ -1,6 +1,6 @@
 <?php
 
-class Migration_Create_roles extends CI_Migration {
+class Migration_Add_roles extends CI_Migration {
 
 	public function up() {
 

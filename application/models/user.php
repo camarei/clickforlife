@@ -39,6 +39,15 @@ class User extends MY_Model {
 
         return $this->db->get()->result();
     }
+
+    public function save(array $user)
+    {
+        if (isset($user['password'])) {
+            $user['password'] = hash('sha1', $user['password']);
+        }
+
+        return parent::save($user);
+    }
 }
 
 ?>
