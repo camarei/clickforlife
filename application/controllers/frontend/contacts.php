@@ -6,6 +6,7 @@ class Contacts extends Frontend {
 		parent::__construct();
 
 		$this->load->model('authentification','auth');
+		$this->load->model('user');
 		$this->load->model('session_model');
 		// Load Authentification model
 	}
@@ -26,6 +27,7 @@ class Contacts extends Frontend {
 		}
 
 		$this->_view = new View_Frontend_Contact;
+		// $this->_view->logged_in_user = $this->user->get($this->auth->get_uid());
 		$this->render();
 	}
 	

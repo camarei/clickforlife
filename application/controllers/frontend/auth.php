@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Auth extends Frontend_Controller {
+class Auth extends Frontend {
     
 	public function __construct() {
 		parent::__construct();
@@ -12,10 +12,6 @@ class Auth extends Frontend_Controller {
 	}
 
 	public function login() {
-		// If user loggedin redirect to main page
-		if ($this->auth->get_uid()) redirect('main');
-
-    	if ($this->input->server('REQUEST_METHOD') === 'POST') {
 
 			// Set validation rules
 			$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -26,21 +22,17 @@ class Auth extends Frontend_Controller {
 			if ($this->form_validation->run()) {
 				// Try to login user
 				if ($this->auth->login($this->input->post('email'),$this->input->post('password'))) {
-					redirect('main');
+
+					// If user loggedin redirect to profile page
+					redirect('profile');
 				}
 			}
-		}
 
-		// Set the meta section
-		$this->data['meta_title'] = $this->data['meta_title'] . '|' . 'Login';
-		//---
-
-		// Rendering the output
-        $this->render('frontend/auth/login');
+		$this->_view = new View_Frontend_Login;
+		// $this->_view->logged_in_user = $this->user->get($this->auth->get_uid());
+		$this->render();
     }
-    
-    
-    // $something = $this->input->post('something',$value); - через запятую ставится значение
+
 
 	public function logout() {
 		$this->auth->logout();
@@ -48,8 +40,6 @@ class Auth extends Frontend_Controller {
 	}
 
     public function forgot_password() {
-   	
-    	// Тут можна юзнать модель без загрузки
     	
     	if ($this->input->server('REQUEST_METHOD') === 'POST') {
 
