@@ -38,10 +38,21 @@ class Profile extends Frontend {
 	public function __construct() {
 		parent::__construct();
 
-		$this->load->model('user');
-
 		if ( ! $this->authentification->logged_in()) {
 			redirect(base_url('login'));
 		}
+	}
+
+	protected function profile_redirect()
+	{
+		$user = $this->user->get();
+
+		if ($this->user->is_admin()){
+			die('Need relogin admin as general user');
+		}
+
+		return $user 
+			? redirect(site_url($user->role_name))
+			: redirect(site_url('login'));
 	}
 }

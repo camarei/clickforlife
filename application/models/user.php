@@ -35,11 +35,12 @@ class User extends MY_Model {
         if ( ! $user_id) {
             $user_id = $this->authentification->get_uid();
         }
+        //die(var_dump($user_id));
 
-        $this->db->select('*');
+        $this->db->select('users.id, users.email, roles.role_name, roles.id as role_id', FALSE);
         $this->db->from($this->_table_name);
-        $this->db->join('roles', 'roles.id = users.id');
-        $this->db->where('users.id', $user_id);
+        $this->db->join('roles', 'roles.id = users.role_id');
+        $this->db->where('users.id', (int) $user_id);
 
         return $this->db->get()->row();
     }
@@ -72,6 +73,13 @@ class User extends MY_Model {
         $user = $this->get();
 
         return $user->role_name === 'advertiser';
+    }
+
+    public function is_admin(){
+
+        $user = $this->get();
+
+        return $user->role_name === 'admin';
     }
 }
 

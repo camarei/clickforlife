@@ -18,8 +18,12 @@ class Auth extends Frontend {
 				// Try to login user
 				if ($this->authentification->login($this->input->post('email'),$this->input->post('password'))) {
 
+					$this->load->model('user');
+
+					$user = $this->user->get();
+
 					// If user loggedin redirect to profile page
-					redirect('profile');
+					redirect(site_url($user->role_name));
 				}
 			}
 

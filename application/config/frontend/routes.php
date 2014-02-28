@@ -17,7 +17,7 @@ $route['registration/(user|victim|client)'] = "frontend/users/registration/$1";
 
 $route['victim'] = "frontend/profile/victim/index";
 
-$route['user'] = "frontend/userprofile";
+$route['user'] = "frontend/user_profile";
 
 $route['advertiser'] = "frontend/advertiser_profile";
 
