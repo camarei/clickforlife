@@ -12,7 +12,8 @@ class User_profile extends Frontend {
 
 	public function index()
 	{
-		die('test');
+		$this->_view = new View_Frontend_Profile_User;
+		$this->render();
 	}
 
 }
