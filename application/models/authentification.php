@@ -35,7 +35,8 @@ class Authentification extends MY_Model {
     * @param string $password User password
     * @return array
     */
-    public function login($email, $password) {
+    public function login($email, $password) 
+    {
 
     	$user = $this->get_one_by_email($email);
 
@@ -47,6 +48,12 @@ class Authentification extends MY_Model {
     	$this->session_model->open_session($user->id);
 		
 		return TRUE;
+    }
+
+
+    public function logged_in()
+    {
+        return (boolean) $this->get_uid();
     }
 
     /*

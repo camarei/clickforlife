@@ -30,14 +30,18 @@ class User extends MY_Model {
     * @param integer $user_id The user id
     * @return object
     */
-    public function get($user_id)
+    public function get($user_id = NULL)
     {
+        if ( ! $user_id) {
+            $user_id = $this->authentification->get_uid();
+        }
+
         $this->db->select('*');
         $this->db->from($this->_table_name);
         $this->db->join('roles', 'roles.id = users.id');
         $this->db->where('users.id', $user_id);
 
-        return $this->db->get()->result();
+        return $this->db->get()->row();
     }
 
     public function save(array $user)
@@ -47,6 +51,27 @@ class User extends MY_Model {
         }
 
         return parent::save($user);
+    }
+
+    public function is_user(){
+
+        $user = $this->get();
+
+        return $user->role_name === 'user';
+    }
+
+    public function is_victim(){
+
+        $user = $this->get();
+
+        return $user->role_name === 'victim';
+    }
+
+    public function is_advertiser(){
+
+        $user = $this->get();
+
+        return $user->role_name === 'advertiser';
     }
 }
 

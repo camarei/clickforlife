@@ -11,7 +11,7 @@ class Migration_Add_roles extends CI_Migration {
 			),
 			array(
 				'id'		=> NULL,
-				'role_name'	=> 'client'
+				'role_name'	=> 'advertiser'
 			),
 			array(
 				'id'		=> NULL,

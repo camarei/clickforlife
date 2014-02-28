@@ -31,3 +31,17 @@ class Frontend extends MY_Controller {
 		$this->data['meta_title'] = $this->config->item('site_name');
 	}
 }
+
+
+class Profile extends Frontend {
+
+	public function __construct() {
+		parent::__construct();
+
+		$this->load->model('user');
+
+		if ( ! $this->authentification->logged_in()) {
+			redirect(base_url('login'));
+		}
+	}
+}
